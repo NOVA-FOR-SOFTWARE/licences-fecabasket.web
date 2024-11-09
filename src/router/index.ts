@@ -8,12 +8,9 @@ const router = createRouter({
       path: '/',
       name: 'dashboard',
       component: HomeView,
-      meta:{
-        title:"dashboard"
-      }
     },
     {
-      path: '/player',
+      path: '/players',
       name: 'player',
       meta:{
         title:"player"
@@ -26,4 +23,4 @@ const router = createRouter({
   ]
 })
 
-export default router
+export default router;
