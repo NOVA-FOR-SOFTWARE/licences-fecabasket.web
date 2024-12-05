@@ -48,7 +48,7 @@ In a job step, `name` is used as a title of what is done on its context and `run
 - One nodejs installed, we use the command `node -v` to check the nodejs version installed
 - We check de the dependency vulnerabilities using `npm audit`
 - We install dependencies using the package-log versions with `npm ci` command. This will help to have the same dependencies as what you have in local without any update.
-- We check if the code is well formatted. This is good to have the same format no matter who write the code, respect the same rules when coding (have a standard) and also to detect smell code. This is archived using linter like (`prettier and eslint`). Here we use the command `npm run lint`
+- We check if the code is well formatted. This is good to have the same format no matter who write the code, respect the same firstStepRules when coding (have a standard) and also to detect smell code. This is archived using linter like (`prettier and eslint`). Here we use the command `npm run lint`
 - We launch units tests to check if those respect the threshold and also to display the coverage result of the units tests on teh pull request using _**[davelosert/vitest-coverage-report-action@v2](https://github.com/davelosert/vitest-coverage-report-action/tree/v2/)**_ action.
 - We check if the build work as expected.
 

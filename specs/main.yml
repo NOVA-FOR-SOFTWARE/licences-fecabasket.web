@@ -1,0 +1,222 @@
+openapi: 3.0.3
+info:
+  title: USER Rest API
+  description: REST API endpoints for managing the player's related resources
+  version: 0.0.1
+servers:
+  - url: "https"
+  - url: "http"
+paths:
+  /joueurs:
+    get:
+      tags:
+        - Players
+      summary: Fetch all the players
+      description: Fetch all the players
+      operationId: fetchPlayers
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PlayerDTO"
+    post:
+      tags:
+        - Players
+      summary: create new player
+      description: create new player
+      operationId: addPlayer
+      requestBody:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlayerDTO"
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreationResponseDTO"
+  /joueurs/{id}:
+    get:
+      tags:
+        - Players
+      summary: Fetch player by his id
+      description: Fetch player by his id
+      operationId: fetchPlayerById
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlayerDTO"
+    put:
+      tags:
+        - Players
+      summary: update player's informations
+      description: update player's informations
+      operationId: updatePlayer
+      requestBody:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlayerDTO"
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreationResponseDTO"
+    delete:
+      tags:
+        - Players
+      summary: delete a player in the system
+      description: delete a player in the system
+      operationId: deletePlayer
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreationResponseDTO"
+
+
+components:
+  schemas:
+    PlayerDTO:
+      type: object
+      required:
+        - id
+        - nom
+        - prenom
+        - sexe
+        - date_naissance
+        - lieu_naissance
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: identifier
+        nom:
+          type: string
+          description: player's name
+        prenom:
+          type: string
+          description: player's name
+        sexe:
+          type: string
+          description: player's name
+        date:
+          type: string
+          description: player's name
+        lieu_naissance:
+          type: string
+          description: player's name
+        residence:
+          type: string
+          description: player's name
+        poids:
+          type: number
+          description: player's name
+        taille:
+          type: integer
+          description: player's name
+        envergure:
+          type: integer
+          description: player's name
+        telephone:
+          type: string
+          description: player's name
+        dossard:
+          type: integer
+          description: player's name
+        email:
+          type: string
+          description: player's name
+        annee_inscription:
+          type: number
+          description: player's name
+        classe_frequentee:
+          type: string
+          description: player's name
+        date_naissance:
+          type: string
+          description: player's name
+        main_forte:
+          $ref: "#/components/schemas/PlayerHandDTO"
+        reseaux_sociaux:
+          type: array
+          description: player's social medias
+          items:
+            $ref: "#/components/schemas/SocialMediaItem"
+        nom_etablissement:
+          type: string
+          description: player's name
+        nom_parent_1:
+          type: string
+          description: player's name
+        telephone_parent_1:
+          type: string
+          description: player's name
+        nom_parent_2:
+          type: string
+          description: player's name
+        telephone_parent_2:
+          type: string
+          description: player's name
+        post:
+          type: string
+          description: player's post
+        ligue:
+          type: string
+          description: player's league
+        statut:
+          type: string
+          description: player's league
+        club:
+          type: string
+          description: player's club's name
+    PlayerHandDTO:
+      type: string
+      enum:
+        - GAUCHE
+        - DROITE
+    PlayerStatutDTO:
+      type: string
+      enum:
+        - BROUILLON
+        - ATTENTE
+        - VALIDE
+        - REFUSE
+    PlayerSexDTO:
+      type: string
+      enum:
+        - MASCULIN
+        - FEMININ
+    SocialMediaItem:
+      type: object
+      properties:
+        key:
+          type: string
+          description: key
+        value:
+          type: string
+          description: key
+    CreationResponseDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id of the entity created
+        message:
+          type: string
+          description: the notification's message

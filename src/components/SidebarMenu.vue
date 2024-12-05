@@ -5,8 +5,9 @@
         <MenuIcon class="w-5 h-5" />
       </button>
     </div>
-    <div class="py-6 pl-8 xl:pl-10">
-      <p class="text-2xl font-bold">F<span class="hidden xl:inline">ecabasket</span></p>
+    <div class="py-4 pl-6 xl:pl-10 flex flex-col items-left">
+      <img class="w-28 hidden xl:inline" alt="logo FECABASKET black ad white" src="@/assets/logo.png" />
+      <p class="text-2xl font-bold text-center xl:hidden 2xl:block 2xl:text-left">F<span class="2xl:inline">ecabasket</span></p>
     </div>
     <ul class=" pl-4 xl:pl-8 space-y-2">
       <li v-for="sideMenuItem in sideMenuItems" :key="sideMenuItem.title"

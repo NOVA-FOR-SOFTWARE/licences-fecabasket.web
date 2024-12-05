@@ -1,22 +1,22 @@
 <template>
   <div class="">
     <label
-      :class="`input flex items-center m-0 border gap-2 ${theme} ${
-        errors?.length && 'border-1.5 border-red-500'
+      :class="`input flex items-center gap-2 ${theme} ${
+        errors?.length ? 'outline-red-500' : 'dark:focus:outline-blue-600'
       }`"
     >
-      <slot name="prepend" />
+      <slot name="left" />
       <input
-        :type="type"
+        type="text"
         :name="name"
-        class="outline-none bg-transparent w-full"
+        class="outline-none bg-transparent"
         :placeholder="placeholder"
         @input="
           (event: Event) =>
             $emit('update:modelValue', (event.target as HTMLInputElement).value)
         "
       />
-      <slot name="append" />
+      <slot name="right" />
     </label>
     <template v-if="errors?.length">
       <p
@@ -31,10 +31,18 @@
   </div>
 </template>
 <script setup lang="ts">
+// :class="[
+// 'rounded border px-3 py-1 w-full mt-2 bg-transparent outline-none dark:text-gray-100 dark:border-gray-700',
+//   errors.length
+//     ? 'outline-red-500'
+//     : isValid
+//       ? 'outline-green-500 dark:outline-green-600'
+//       : 'focus:outline-blue-500 dark:focus:outline-blue-600',
+// ]"
 import type { ErrorObject } from "@vuelidate/core";
 
 defineEmits(["update:modelValue"]);
-
+// const emit = defineEmits(["update:modelValue"]);
 withDefaults(
   defineProps<{
     label?: string;
@@ -42,7 +50,7 @@ withDefaults(
     modelValue: string | number;
     placeholder?: string;
     theme?: string;
-    type?: "text" | "email" | "number" | "date";
+    type?: "text" | "email" | "number";
     errors?: ErrorObject[];
   }>(),
   {
