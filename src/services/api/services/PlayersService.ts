@@ -47,10 +47,17 @@ export class PlayersService {
      * @returns PlayerDTO successful operation
      * @throws ApiError
      */
-    public static fetchPlayerById(): CancelablePromise<PlayerDTO> {
+    public static fetchPlayerById({
+        id,
+    }: {
+        id?: any,
+    }): CancelablePromise<PlayerDTO> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/joueurs/{id}',
+            path: {
+                'id': id,
+            },
         });
     }
     /**

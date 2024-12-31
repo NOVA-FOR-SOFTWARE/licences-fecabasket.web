@@ -18,6 +18,21 @@ export class PlayerResources {
       });
   }
 
+  static async getPlayerById(id: string): Promise<ApiResponse<Player>> {
+    return PlayersService.fetchPlayerById({ id })
+      .then((player) => ({
+        data: new Player(player),
+        status: "success",
+      }))
+      .catch((error) => {
+        console.error(error);
+        return {
+          status: "error",
+          message: (error as Error).message,
+        };
+      });
+  }
+
   static async create(form: Player): Promise<ApiResponse<string>> {
     return PlayersService.addPlayer({
       requestBody: form.toApi,

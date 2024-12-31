@@ -203,7 +203,7 @@ export class Player extends Entity<PlayerProps> {
   get toApi(): PlayerProps {
     return {
       id: this._id ?? "",
-      nom: this.lastName,
+      nom: this.lastname,
       prenom: this.firstname,
       sexe: this.sex,
       date: "", // TODO: check the utility of this,
