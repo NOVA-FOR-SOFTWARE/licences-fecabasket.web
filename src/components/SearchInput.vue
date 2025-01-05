@@ -12,7 +12,7 @@ import SearchIcon from './icons/SearchIcon.vue';
 withDefaults(
   defineProps<{
     label?: string,
-    name?: string,
+    firstName?: string,
     modelValue: string,
     placeholder?: string,
     theme?: string

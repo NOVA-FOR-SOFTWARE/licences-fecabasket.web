@@ -2,4 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type PlayerHandDTO = 'GAUCHE' | 'DROITE';
+export type LoginResponseDTO = {
+    message?: string;
+};
+

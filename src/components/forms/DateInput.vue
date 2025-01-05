@@ -46,7 +46,7 @@ defineEmits(["update:modelValue"]);
 withDefaults(
   defineProps<{
     label?: string;
-    name?: string;
+    firstName?: string;
     modelValue: string | number;
     placeholder?: string;
     theme?: string;

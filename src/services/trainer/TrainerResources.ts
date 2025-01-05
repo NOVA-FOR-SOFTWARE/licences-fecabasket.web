@@ -1,12 +1,12 @@
-import { PlayerService } from "@/services/api";
+import { TrainerService } from "@/services/api";
 import type { ApiResponse } from "@core/Errors";
-import { Player } from "@services/user/entities/Player.entity";
+import { Trainer } from "@services/trainer/entities/Trainer.entity";
 
-export class PlayerResources {
-  static async getAllPlayers(): Promise<ApiResponse<Player[]>> {
-    return PlayerService.getAllPlayers()
+export class TrainerResources {
+  static async getAllTrainers(): Promise<ApiResponse<Trainer[]>> {
+    return TrainerService.getAllTrainers()
       .then((response) => ({
-        data: response.map((player) => new Player(player)) ?? [],
+        data: response.map((trainer) => new Trainer(trainer)) ?? [],
         status: "success",
       }))
       .catch((error) => {
@@ -18,10 +18,10 @@ export class PlayerResources {
       });
   }
 
-  static async getPlayerById(id: string): Promise<ApiResponse<Player>> {
-    return PlayerService.getPlayerById({ id })
-      .then((player) => ({
-        data: new Player(player),
+  static async getTrainerById(id: string): Promise<ApiResponse<Trainer>> {
+    return TrainerService.fetchTrainerById({ id })
+      .then((trainer) => ({
+        data: new Trainer(trainer),
         status: "success",
       }))
       .catch((error) => {
@@ -33,8 +33,8 @@ export class PlayerResources {
       });
   }
 
-  static async create(form: Player): Promise<ApiResponse<string>> {
-    return PlayerService.createPlayer({
+  static async create(form: Trainer): Promise<ApiResponse<string>> {
+    return TrainerService.addTrainer({
       requestBody: form.toApi,
     })
       .then((response) => ({

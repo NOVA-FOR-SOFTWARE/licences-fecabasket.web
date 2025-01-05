@@ -14,7 +14,8 @@ export class PlayerView implements DataGridRow<PlayerViewType> {
   private props: PlayerViewType = {};
 
   constructor(data: Player) {
-    this.props.fullName = `${data.lastName} ${data.firstname}`;
+    console.log(data);
+    this.props.fullName = `${data.lastname} ${data.firstname}`;
     this.props.club = data.club;
     this.props.league = data.league;
     this.props.id = data.id;

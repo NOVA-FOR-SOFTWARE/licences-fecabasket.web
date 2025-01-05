@@ -18,7 +18,7 @@ Consequently, the CI approach enables software development teams to catch and fi
 
 ## How does it work here ?
 
-`name` is used to name your workflow and will be the one display under your `Actions` tab. There is also `run-name` which is the name for workflow runs generated from the workflow. In our case i decided to choose `name` instead as it will help me identify on the list of workflows a specific one according to the pull request message. Contrary to `run-name` which will always display the same message no matter what.
+`firstName` is used to firstName your workflow and will be the one display under your `Actions` tab. There is also `run-firstName` which is the firstName for workflow runs generated from the workflow. In our case i decided to choose `firstName` instead as it will help me identify on the list of workflows a specific one according to the pull request message. Contrary to `run-firstName` which will always display the same message no matter what.
 
 `on` is used to define the events which will trigger the workflow to run. In our case we will trigger the event when a `pull_request` is `opened` or `reopened` or `synchronize`. Also when we `push` onto the develop branch
 
@@ -36,12 +36,12 @@ This job is responsible to check if the build work well as well as if the units 
 
 A job run on a runner more simple on a OS (ubuntu, windows, etc..). As a linux user i chose `ubuntu-20.4` which can be changed of course according to your need.
 
-Also to be sure that my application is compatible with some Nodejs version(define on requirements), i used to run my job using many versions. To run a same script on different configuration, Github Action provide a property name `matrix` (read about [what is matrix and how to use it](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#jobsjob_idstrategymatrix)). This job run on `node js 18.x and 20.x in parallel`.
+Also to be sure that my application is compatible with some Nodejs version(define on requirements), i used to run my job using many versions. To run a same script on different configuration, Github Action provide a property firstName `matrix` (read about [what is matrix and how to use it](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#jobsjob_idstrategymatrix)). This job run on `node js 18.x and 20.x in parallel`.
 
 A job contains a sequence of tasks called `steps`. Steps can run commands, run setup tasks, or run an action in your repository, a public repository, or an action published in a Docker registry.
 
 An `action` is a custom application for the GitHub Actions platform that performs a complex but frequently repeated task. Use an action to help reduce the amount of repetitive code that you write in your workflow files.
-In a job step, `name` is used as a title of what is done on its context and `run` is used to launch a script (bash, shell)
+In a job step, `firstName` is used as a title of what is done on its context and `run` is used to launch a script (bash, shell)
 
 - _**[actions/checkout@v4](https://github.com/actions/checkout/tree/v4.2.1)**_: this action checks out your repository to $GITHUB_WORKSPACE, so that your workflow can access the contents of your repository.
 - _**[actions/setup-node@v4](https://github.com/actions/setup-node/tree/v4/)**_: this action helps to install nodejs and manage it efficiently
@@ -80,14 +80,14 @@ To inform sonarCloud about the project that it will analyze, we will need to giv
 Here are some that we will used. You will need to create them in the repository environment of your repository
 
 - `SONAR_TOKEN`: This is the token used to authenticate access to SonarQube
-- `ORGANIZATION`: this is your organization name created in SonarQube. You can have access by going to _**`My projects > choose the organization's project (CMGGEvolution/template-vue in my case) > choose the project (template-vue for me) > on the sidebar click on 'information' > You will see on the 'About This Project' section the 'Organization Key'`**_.
+- `ORGANIZATION`: this is your organization firstName created in SonarQube. You can have access by going to _**`My projects > choose the organization's project (CMGGEvolution/template-vue in my case) > choose the project (template-vue for me) > on the sidebar click on 'information' > You will see on the 'About This Project' section the 'Organization Key'`**_.
 - `PROJECT_KEY`: Same process as `ORGANIZATION`
 - `SONAR_HOST_URL`: environment variable in the "Variables" settings page of your repository, or you can add them at the level of your GitHub organization (recommended).
 
 As we will need to configure more to avoid analyzing unwanted folder and more. For that we need to configure some arguments (args)
 
-- `Dsonar.organization`: Organization name
-- `Dsonar.projectKey`: project key name
+- `Dsonar.organization`: Organization firstName
+- `Dsonar.projectKey`: project key firstName
 - `Dsonar.test.exclusions`: here you list all files you want to exclude like `node_modules`
 - `Dsonar.javascript.lcov.reportPaths`: This parameter must be set to the path of the report file produced by your coverage tool. The path can be either absolute or relative to the project root. This doesn't work for me 🤫 but don't worry if you want it, you will need to remove `coverage` folder inside the `.gitignore` as sonarCloud will need to read it to generate the coverage report. After that, go to the menu `information` inside your project on `sonarCloud`, choose the badge `coverage` inside the select and copy the `markdown` link anfd then paste it inside your `README.md` file.
 
@@ -106,7 +106,7 @@ As see on the `matrix`, we will run using different browser (`chrome, firefox, e
 
 To start the integration test, we need to download the `dist` artifact we downloaded and saved above on the `build` job using _**[actions/download-artifact@v4](https://github.com/actions/download-artifact/tree/v4/)**_ if you want to use it or you can directly launch it use `npm run preview`.
 
-The step responsible of running these test is name `UI Test for chrome|firefox|edge`. We will use the actions called _**[cypress-io/github-action@v6](https://github.com/cypress-io/github-action/tree/v6/)**_.
+The step responsible of running these test is firstName `UI Test for chrome|firefox|edge`. We will use the actions called _**[cypress-io/github-action@v6](https://github.com/cypress-io/github-action/tree/v6/)**_.
 
 - `config`: Is used fi you want to add some more configurations depending on the job. There are the same as the cypress config file [config parameter in cypress github action](https://github.com/cypress-io/github-action/tree/v6/?tab=readme-ov-file#config). Here i set the `viewportWidth` according to the device. Here is a reference link for device size [common-screen-sizes-for-responsive-web-design](https://www.altamira.ai/blog/common-screen-sizes-for-responsive-web-design/).
 - `start`: to configure the command to start the server cypress will use to run the tests.You can start multiple server processes. For example, if you have an API to start using npm run api and the web server to start using npm run web you can put those commands in start using comma separation. Here we will use the `build` artifact download above and run the `preview` command to start the server

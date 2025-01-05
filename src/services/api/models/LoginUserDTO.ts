@@ -2,14 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type SocialMediaItem = {
-    /**
-     * key
-     */
-    key?: string;
-    /**
-     * key
-     */
-    value?: string;
+export type LoginUserDTO = {
+    email?: string;
+    password?: string;
 };
 

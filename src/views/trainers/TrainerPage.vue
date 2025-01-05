@@ -1,9 +1,9 @@
 <template>
-  <div class="pt-4">
+  <div>
     <div class="flex justify-between">
       <PlayersListFilter />
-      <button onclick="addPlayerModal.showModal()" class="btn bg-green-500">
-        <span>Nouveau joueur</span>
+      <button onclick="addTrainerModal.showModal()" class="btn bg-green-500">
+        <span>Nouveau coach</span>
       </button>
     </div>
     <h2 class="my-6 text-xl font-semibold">Statistique globale</h2>
@@ -11,14 +11,14 @@
     <DataGrid
       :column-headers="columns"
       shouldSelect
-      :rows="playerRows"
+      :rows="trainerRows"
       :isLoading="isLoading"
       hasTotal
       class="mt-8"
     >
       <template v-slot="{ row }">
         <tr
-          @click="router.push(`players/${row.getId()}`)"
+          @click="router.push(`trainers/${row.getId()}`)"
           data-test-id="item"
           :data-test="row.getId()"
           class="cursor-pointer"
@@ -51,13 +51,6 @@
             >
               {{ row.getTextFor(header.key) }}
             </span>
-            <span v-else-if="header.key === 'status'">
-              <StatusBadge
-                class="max-w-min"
-                :title="PlayerStatusLabel[row.getTextFor(header.key)]"
-                :theme="PlayerStatusTheme[row.getTextFor(header.key)]"
-              />
-            </span>
             <div v-else-if="header.key === 'action'" class="flex gap-1.5">
               <button
                 class="p-1 btn-xs hover:bg-blue-100 hover:text-blue-500 rounded"
@@ -82,93 +75,56 @@
         </tr>
       </template>
     </DataGrid>
-    <AddPlayer
-      @close="shouldAddPlayer = false"
-      @created="handleCreated"
+    <AddTrainer
+      v-if="shouldAddTrainer"
+      @close="shouldAddTrainer = false"
       class="w-full"
     />
   </div>
 </template>
+
 <script setup lang="ts">
+import { ref, onBeforeMount, defineAsyncComponent } from "vue";
 import DataGrid from "@/components/DataGrid.vue";
-import PlayersListFilter from "@/components/PlayersListFilter.vue";
-import PlayerStatistics from "@/components/PlayerStatistics.vue";
-import { defineAsyncComponent, onBeforeMount, ref } from "vue";
-import { Player } from "@services/user/entities/Player.entity";
-import {
-  PlayerStatusLabel,
-  PlayerStatusTheme,
-  PlayerView,
-} from "@services/user/entities/Player.view";
-import type { DataGridColumnHeader } from "@core/type";
-import { PlayerResources } from "@services/user/PlayerResources";
-import StatusBadge from "@/components/StatusBadge.vue";
+import { TrainerResources } from "@services/trainer/TrainerResources";
+import { Trainer } from "@services/trainer/entities/Trainer.entity";
+import { useRouter } from "vue-router";
+import { TrainerView } from "@services/trainer/entities/Trainer.view";
 import EyeIcon from "@/components/icons/EyeIcon.vue";
 import EditPersonIcon from "@/components/icons/EditPersonIcon.vue";
 import TrashIcon from "@/components/icons/TrashIcon.vue";
-import { useRouter } from "vue-router";
+import PlayerStatistics from "@/components/PlayerStatistics.vue";
+import PlayersListFilter from "@/components/PlayersListFilter.vue";
 
 const router = useRouter();
-const AddPlayer = defineAsyncComponent(() => import("./AddPlayerPage.vue"));
-const shouldAddPlayer = ref<boolean>(false);
 
 const isLoading = ref<boolean>(false);
-const players = ref<Player[]>([]);
-const playerRows = ref<PlayerView[]>([]);
 
-const fetchPlayers = async () => {
-  isLoading.value = true;
-  const playersFetched = await PlayerResources.getAllPlayers();
-  if (playersFetched.status === "success") {
-    players.value = playersFetched.data;
-    // console.log(playersFetched.data.length);
+const AddTrainer = defineAsyncComponent(() => import("./AddTrainerPage.vue"));
+const shouldAddTrainer = ref<boolean>(false);
 
-    playerRows.value = playersFetched.data.map(
-      (player) => new PlayerView(player),
-    );
-    // console.log(playerRows.value);
-  }
-  isLoading.value = false;
-};
-
-const handleCreated = () => {
-  addPlayerModal?.closeModal()
-  fetchPlayers();
-
-}
-
-const columns: DataGridColumnHeader[] = [
-  {
-    key: "picture",
-    label: "🖼",
-  },
-  {
-    key: "fullName",
-    label: "Nom & Prénom",
-  },
-  {
-    key: "club",
-    label: "Club",
-  },
-  {
-    key: "post",
-    label: "Poste",
-  },
-  {
-    key: "league",
-    label: "Ligue",
-  },
-  {
-    key: "status",
-    label: "Statut",
-  },
-  {
-    key: "action",
-    label: "Action",
-  },
+const columns = [
+  { key: "photo", label: "🖼" },
+  { key: "fullName", label: "Name" },
+  { key: "email", label: "Email" },
+  { key: "phoneNumber", label: "Numero de telephone" },
+  { key: "club", label: "Club" },
+  { key: "achievements", label: "Achievements" },
+  { key: "action", label: "Action" },
 ];
 
+const trainers = ref<Trainer[]>([]);
+const trainerRows = ref<TrainerView[]>([]);
+
+const fetchTrainers = async () => {
+  const { data, status } = await TrainerResources.getAllTrainers();
+  if (status === "success" && data) {
+    trainers.value = data;
+    trainerRows.value = data.map((trainer) => new TrainerView(trainer));
+  }
+};
+
 onBeforeMount(() => {
-  fetchPlayers();
+  fetchTrainers();
 });
 </script>

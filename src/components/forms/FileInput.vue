@@ -30,10 +30,9 @@
           :class="`border-2 border-dashed rounded-md w-full h-full p-4 flex justify-center items-center  ${errors?.length && 'border-1.5 border-red-500'}`"
         >
           <span class="text-gray-500 font-semibold text-center">
-            {{ !modelValue ? placeholder : modelValue?.name }}
+            {{ !modelValue ? placeholder : modelValue?.firstName }}
           </span>
         </div>
-        v
       </div>
     </label>
     <template v-if="errors?.length">
@@ -53,7 +52,7 @@ import type { ErrorObject } from "@vuelidate/core";
 
 withDefaults(
   defineProps<{
-    name?: string;
+    firstName?: string;
     label?: string;
     placeholder?: string;
     preview?: boolean;
@@ -64,6 +63,7 @@ withDefaults(
     modelValue: File | null;
     multiple?: boolean;
     errors?: ErrorObject[];
+    name?: string;
   }>(),
   {
     required: false,
@@ -71,6 +71,7 @@ withDefaults(
     preview: false,
     placeholder: "",
     multiple: false,
+    name: "",
   },
 );
 

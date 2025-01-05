@@ -1,399 +1,617 @@
 openapi: 3.0.3
 info:
   title: USER Rest API
-  description: REST API endpoints for managing the player's related resources
+  description: REST API endpoints for managing the official's related resources
   version: 0.0.1
 servers:
   - url: "https"
   - url: "http"
 paths:
-  /joueurs:
-    get:
-      tags:
-        - Players
-      summary: Fetch all the players
-      description: Fetch all the players
-      operationId: fetchPlayers
-      responses:
-        200:
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/PlayerDTO"
+  /register:
     post:
       tags:
-        - Players
-      summary: create new player
-      description: create new player
-      operationId: addPlayer
+        - User
+      summary: Register a new user
+      operationId: registerUser
       requestBody:
-        description: successful operation
+        required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PlayerDTO"
+              $ref: '#/components/schemas/RegisterUserDTO'
       responses:
-        200:
-          description: successful operation
+        '200':
+          description: Successful registration
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CreationResponseDTO"
-  /joueurs/{id}:
-    get:
+                $ref: '#/components/schemas/RegistrationResponseDTO'
+  /login:
+    post:
       tags:
-        - Players
-      summary: Fetch player by his id
-      description: Fetch player by his id
-      operationId: fetchPlayerById
-      parameters:
-        - in: path
-          name: id
-      responses:
-        200:
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/PlayerDTO"
-    put:
-      tags:
-        - Players
-      summary: update player's informations
-      description: update player's informations
-      operationId: updatePlayer
+        - User
+      summary: Login a user
+      operationId: loginUser
       requestBody:
-        description: successful operation
+        required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PlayerDTO"
+              $ref: '#/components/schemas/LoginUserDTO'
       responses:
-        200:
-          description: successful operation
+        '200':
+          description: Successful login
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CreationResponseDTO"
-    delete:
-      tags:
-        - Players
-      summary: delete a player in the system
-      description: delete a player in the system
-      operationId: deletePlayer
-      responses:
-        200:
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/CreationResponseDTO"
-
+                $ref: '#/components/schemas/LoginResponseDTO'
   /clubs:
     get:
       tags:
-        - Players
-      summary: Fetch all the players
-      description: Fetch all the players
-      operationId: fetchPlayers
+        - Club
+      summary: Get all players
+      operationId: getAllClubs
       responses:
-        200:
-          description: successful operation
+        '200':
+          description: List of players
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/PlayerDTO"
+                  $ref: '#/components/schemas/ClubDTO'
     post:
       tags:
-        - Players
-      summary: create new player
-      description: create new player
-      operationId: addPlayer
+        - Club
+      summary: Create a new clubs
+      operationId: createClub
       requestBody:
-        description: successful operation
+        required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PlayerDTO"
+              $ref: '#/components/schemas/CreateClubDTO'
       responses:
-        200:
-          description: successful operation
+        '201':
+          description: Club created successfully
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CreationResponseDTO"
+                $ref: '#/components/schemas/CreationResponseDTO'
   /clubs/{id}:
     get:
       tags:
-        - Players
-      summary: Fetch player by his id
-      description: Fetch player by his id
-      operationId: fetchPlayerById
+        - Club
+      summary: Get clubs by ID
+      operationId: getClubById
       parameters:
-        - in: path
-          name: id
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
       responses:
-        200:
-          description: successful operation
+        '200':
+          description: Club details
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PlayerDTO"
-    put:
+                $ref: '#/components/schemas/ClubDTO'
+  /joueurs:
+    get:
       tags:
-        - Players
-      summary: update player's informations
-      description: update player's informations
-      operationId: updatePlayer
+        - Player
+      summary: Get all clubs
+      operationId: getAllPlayers
+      responses:
+        '200':
+          description: List of clubs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlayerDTO'
+    post:
+      tags:
+        - Player
+      summary: Create a new official
+      operationId: createPlayer
       requestBody:
-        description: successful operation
+        required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PlayerDTO"
+              $ref: '#/components/schemas/CreatePlayerDTO'
       responses:
-        200:
-          description: successful operation
+        '201':
+          description: Player created successfully
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CreationResponseDTO"
-    delete:
+                $ref: '#/components/schemas/CreationResponseDTO'
+  /joueurs/{id}:
+    get:
       tags:
-        - Players
-      summary: delete a player in the system
-      description: delete a player in the system
-      operationId: deletePlayer
+        - Player
+      summary: Get official by ID
+      operationId: getPlayerById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
       responses:
-        200:
-          description: successful operation
+        '200':
+          description: Player details
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CreationResponseDTO"
-
+                $ref: '#/components/schemas/PlayerDTO'
+  /officiels:
+    get:
+      tags:
+        - Official
+      summary: Get all officials
+      operationId: getAllOfficials
+      responses:
+        '200':
+          description: List of officials
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OfficialDTO'
+    post:
+      tags:
+        - Official
+      summary: Create a new official
+      operationId: createOfficial
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOfficialDTO'
+      responses:
+        '201':
+          description: Official created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreationResponseDTO'
+  /officiels/{id}:
+    get:
+      tags:
+        - Official
+      summary: Get official by ID
+      operationId: getOfficialById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Official details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfficialDTO'
+        '404':
+          description: Official not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+  /entraineurs:
+    get:
+      tags:
+        - Trainer
+      summary: Get all coaches
+      operationId: getAllTrainers
+      responses:
+        '200':
+          description: List of coaches
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrainerDTO'
+    post:
+        tags:
+          - Trainer
+        summary: Create a new Trainer
+        operationId: createTrainer
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateClubDTO'
+        responses:
+          '201':
+            description: Club created successfully
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/CreationResponseDTO'
+  /entraineurs/{id}:
+      get:
+        tags:
+          - Club
+        summary: Get trainer by ID
+        operationId: getTrainerById
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: integer
+        responses:
+          '200':
+            description: Trainer details
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/TrainerDTO'
 components:
   schemas:
-    PlayerDTO:
+    RegisterUserDTO:
       type: object
-      required:
-        - id
-        - nom
-        - prenom
-        - sexe
-        - date_naissance
-        - lieu_naissance
       properties:
-        id:
-          type: string
-          format: uuid
-          description: identifier
-        nom:
-          type: string
-          description: player's name
-        prenom:
-          type: string
-          description: player's name
-        sexe:
-          type: string
-          description: player's name
-        date:
-          type: string
-          description: player's name
-        lieu_naissance:
-          type: string
-          description: player's name
-        residence:
-          type: string
-          description: player's name
-        poids:
-          type: number
-          description: player's name
-        taille:
-          type: integer
-          description: player's name
-        envergure:
-          type: integer
-          description: player's name
-        telephone:
-          type: string
-          description: player's name
-        dossard:
-          type: integer
-          description: player's name
         email:
           type: string
-          description: player's name
-        annee_inscription:
-          type: number
-          description: player's name
-        classe_frequentee:
+          format: email
+          example: user@email.test.com
+        password:
           type: string
-          description: player's name
-        date_naissance:
+          format: password
+          example: Passe123
+    RegistrationResponseDTO:
+      type: object
+      properties:
+        message:
           type: string
-          description: player's name
-        main_forte:
-          $ref: "#/components/schemas/PlayerHandDTO"
-        reseaux_sociaux:
-          type: array
-          description: player's social medias
-          items:
-            $ref: "#/components/schemas/SocialMediaItem"
-        nom_etablissement:
+          example: Registration successful
+    LoginUserDTO:
+      type: object
+      properties:
+        email:
           type: string
-          description: player's name
-        nom_parent_1:
+          format: email
+          example: Carl@example.com
+        password:
           type: string
-          description: player's name
-        telephone_parent_1:
+          format: password
+          example: motdepasse123
+    LoginResponseDTO:
+      type: object
+      properties:
+        message:
           type: string
-          description: player's name
-        nom_parent_2:
-          type: string
-          description: player's name
-        telephone_parent_2:
-          type: string
-          description: player's name
-        post:
-          type: string
-          description: player's post
-        ligue:
-          type: string
-          description: player's league
-        statut:
-          type: string
-          description: player's league
+          example: Connexion réussie
     ClubDTO:
       type: object
-      required:
-        - id
-        - nom
-        - prenom
-        - sexe
-        - date_naissance
-        - lieu_naissance
       properties:
         id:
+          type: integer
+        logo:
           type: string
-          format: uuid
-          description: identifier
         nom:
           type: string
-          description: player's name
-        prenom:
+        nom_dirigeant:
           type: string
-          description: player's name
-        sexe:
+        date_creation:
           type: string
-          description: player's name
-        date:
-          type: string
-          description: player's name
-        lieu_naissance:
-          type: string
-          description: player's name
-        residence:
-          type: string
-          description: player's name
-        poids:
-          type: number
-          description: player's name
-        taille:
-          type: integer
-          description: player's name
-        envergure:
-          type: integer
-          description: player's name
-        telephone:
-          type: string
-          description: player's name
-        dossard:
-          type: integer
-          description: player's name
+          format: date
         email:
           type: string
-          description: player's name
-        annee_inscription:
-          type: number
-          description: player's name
-        classe_frequentee:
+          format: email
+        localite:
           type: string
-          description: player's name
-        date_naissance:
+        numero_telephone:
           type: string
-          description: player's name
-        main_forte:
-          $ref: "#/components/schemas/PlayerHandDTO"
-        reseaux_sociaux:
+        entraineur:
+          type: string
+        dossier:
+          type: string
+        palmares:
+          type: string
+        couleurs_maillot:
           type: array
-          description: player's social medias
           items:
-            $ref: "#/components/schemas/SocialMediaItem"
-        nom_etablissement:
+            type: string
+        created_at:
           type: string
-          description: player's name
-        nom_parent_1:
+          format: date-time
+        updated_at:
           type: string
-          description: player's name
-        telephone_parent_1:
-          type: string
-          description: player's name
-        nom_parent_2:
-          type: string
-          description: player's name
-        telephone_parent_2:
-          type: string
-          description: player's name
-        post:
-          type: string
-          description: player's post
-        ligue:
-          type: string
-          description: player's league
-        statut:
-          type: string
-          description: player's league
-        club:
-          type: string
-          description: player's club's name
-    PlayerHandDTO:
-      type: string
-      enum:
-        - GAUCHE
-        - DROITE
-    PlayerStatutDTO:
-      type: string
-      enum:
-        - BROUILLON
-        - ATTENTE
-        - VALIDE
-        - REFUSE
-    PlayerSexDTO:
-      type: string
-      enum:
-        - MASCULIN
-        - FEMININ
-    SocialMediaItem:
+          format: date-time
+    CreateClubDTO:
       type: object
       properties:
-        key:
+        logo:
           type: string
-          description: key
-        value:
+        nom:
           type: string
-          description: key
+        nom_dirigeant:
+          type: string
+        date_creation:
+          type: string
+          format: date
+        email:
+          type: string
+          format: email
+        localite:
+          type: string
+        numero_telephone:
+          type: string
+        entraineur:
+          type: string
+        dossier:
+          type: string
+        palmares:
+          type: string
+        couleurs_maillot:
+          type: array
+          items:
+            type: string
+    PlayerDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        nom:
+          type: string
+        prenom:
+          type: string
+        sexe:
+          type: string
+        date_naissance:
+          type: string
+          format: date
+        lieu_naissance:
+          type: string
+        residence:
+          type: string
+        main_forte:
+          type: string
+        poids:
+          type: number
+        taille:
+          type: number
+        envergure:
+          type: number
+        telephone:
+          type: string
+        dossard:
+          type: integer
+        email:
+          type: string
+          format: email
+        reseaux_sociaux:
+          type: string
+        annee_inscription:
+          type: integer
+        nom_etablissement:
+          type: string
+        classe_frequentee:
+          type: string
+        nom_parent_1:
+          type: string
+        telephone_parent_1:
+          type: string
+        nom_parent_2:
+          type: string
+        telephone_parent_2:
+          type: string
+        imc:
+          type: number
+        passions:
+          type: string
+        statut:
+          type: string
+        date_creation:
+          type: string
+          format: date-time
+        profession:
+          type: string
+        dossier:
+          type: string
+        photo:
+          type: string
+        club:
+          type: string
+        ligue:
+          type: string
+    CreatePlayerDTO:
+      type: object
+      properties:
+        nom:
+          type: string
+        prenom:
+          type: string
+        sexe:
+          type: string
+        date_naissance:
+          type: string
+          format: date
+        lieu_naissance:
+          type: string
+        residence:
+          type: string
+        main_forte:
+          type: string
+        poids:
+          type: number
+        taille:
+          type: number
+        envergure:
+          type: number
+        telephone:
+          type: string
+        dossard:
+          type: integer
+        email:
+          type: string
+          format: email
+        reseaux_sociaux:
+          type: string
+        annee_inscription:
+          type: integer
+        nom_etablissement:
+          type: string
+        classe_frequentee:
+          type: string
+        nom_parent_1:
+          type: string
+        telephone_parent_1:
+          type: string
+        nom_parent_2:
+          type: string
+        telephone_parent_2:
+          type: string
+        imc:
+          type: number
+        passions:
+          type: string
+        statut:
+          type: string
+        date_creation:
+          type: string
+          format: date-time
+        profession:
+          type: string
+        dossier:
+          type: string
+        photo:
+          type: string
+        club:
+          type: string
+        ligue:
+          type: string
+    OfficialDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        noms:
+          type: string
+        prenoms:
+          type: string
+        date_naissance:
+          type: string
+          format: date
+        lieu_naissance:
+          type: string
+        lieu_residence:
+          type: string
+        telephone:
+          type: string
+        email:
+          type: string
+          format: email
+        photo_profil:
+          type: string
+        grade:
+          type: string
+    CreateOfficialDTO:
+      type: object
+      properties:
+        noms:
+          type: string
+        prenoms:
+          type: string
+        date_naissance:
+          type: string
+          format: date
+        lieu_naissance:
+          type: string
+        lieu_residence:
+          type: string
+        telephone:
+          type: string
+        email:
+          type: string
+          format: email
+        photo_profil:
+          type: string
+        grade:
+          type: string
+    TrainerDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        photo:
+          type: string
+        nom:
+          type: string
+        prenom:
+          type: string
+        date_naissance:
+          type: string
+          format: date
+        lieu_naissance:
+          type: string
+        lieu_residence:
+          type: string
+        telephone:
+          type: string
+        email:
+          type: string
+          format: email
+        club:
+          type: string
+        dossier:
+          type: string
+        palmares:
+          type: string
+        notification:
+          type: boolean
+    CreateTrainerDTO:
+      type: object
+      properties:
+        photo:
+          type: string
+        nom:
+          type: string
+        prenom:
+          type: string
+        date_naissance:
+          type: string
+          format: date
+        lieu_naissance:
+          type: string
+        lieu_residence:
+          type: string
+        telephone:
+          type: string
+        email:
+          type: string
+          format: email
+        club:
+          type: string
+        dossier:
+          type: string
+        palmares:
+          type: string
+        notification:
+          type: boolean
     CreationResponseDTO:
       type: object
       properties:
-        id:
-          type: string
-          description: id of the entity created
         message:
           type: string
-          description: the notification's message
+          example: Created successfully
+    ErrorResponseDTO:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Not found

@@ -2,4 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type PlayerSexDTO = 'MASCULIN' | 'FEMININ';
+export type RegisterUserDTO = {
+    email?: string;
+    password?: string;
+};
+

@@ -16,23 +16,78 @@ const router = createRouter({
           },
         },
         {
-          path: "players",
+          path: "clubs",
           meta: {
-            title: "players",
+            title: "club",
           },
           children: [
             {
               path: "",
-              name: "players-list",
-              component: () => import("../views/PlayerPage.vue"),
+              name: "clubs-list",
+              component: () => import("@/views/clubs/ClubPage.vue"),
+            },
+            {
+              path: ":id",
+              name: "official-details",
+              component: () => import("@/views/clubs/ClubDetailsPage.vue"),
+            },
+          ],
+        },
+        {
+          path: "players",
+          meta: {
+            title: "player",
+          },
+          children: [
+            {
+              path: "",
+              name: "player-list",
+              component: () => import("@/views/players/PlayerPage.vue"),
             },
             {
               path: ":id",
               name: "player-details",
-              component: () => import("../views/PlayerDetailsPage.vue"),
+              component: () => import("@/views/players/PlayerDetailsPage.vue"),
             },
           ],
         },
+        {
+          path: "trainers",
+          meta: {
+            title: "trainers",
+          },
+          children: [
+            {
+              path: "",
+              name: "trainer-list",
+              component: () => import("@/views/trainers/TrainerPage.vue"),
+            },
+            {
+              path: ":id",
+              name: "trainer-details",
+              component: () => import("@/views/trainers/TrainerDetailsPage.vue"),
+            },
+          ],
+        },
+        {
+          path: "officials",
+          meta: {
+            title: "officials",
+          },
+          children: [
+            {
+              path: "",
+              name: "officials-list",
+              component: () => import("@/views/officials/OfficialPage.vue"),
+            },
+            {
+              path: ":id",
+              name: "officials-details",
+              component: () => import("@/views/officials/OfficialDetailsPage.vue"),
+            },
+          ],
+        },
+
       ],
     },
   ],

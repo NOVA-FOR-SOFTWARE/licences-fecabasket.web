@@ -62,10 +62,10 @@ const sideMenuItems = [
     link: "/players"
   },
   {
-    title: "officiels",
+    title: "officials",
     label: "Officiels",
     icon: OfficielIcon,
-    link: "/officiels"
+    link: "/officials"
   },
   {
     title: "trainers",

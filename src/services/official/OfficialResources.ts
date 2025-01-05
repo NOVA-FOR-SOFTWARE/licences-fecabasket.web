@@ -1,12 +1,12 @@
-import { PlayerService } from "@/services/api";
+import { OfficialService } from "@services/api";
 import type { ApiResponse } from "@core/Errors";
-import { Player } from "@services/user/entities/Player.entity";
+import { Official } from "@services/official/entities/Official.entity";
 
-export class PlayerResources {
-  static async getAllPlayers(): Promise<ApiResponse<Player[]>> {
-    return PlayerService.getAllPlayers()
+export class OfficialResources {
+  static async getAllOfficials(): Promise<ApiResponse<Official[]>> {
+    return OfficialService.getAllOfficials()
       .then((response) => ({
-        data: response.map((player) => new Player(player)) ?? [],
+        data: response.map((official) => new Official(official)) ?? [],
         status: "success",
       }))
       .catch((error) => {
@@ -18,10 +18,10 @@ export class PlayerResources {
       });
   }
 
-  static async getPlayerById(id: string): Promise<ApiResponse<Player>> {
-    return PlayerService.getPlayerById({ id })
-      .then((player) => ({
-        data: new Player(player),
+  static async getOfficialById(id: string): Promise<ApiResponse<Official>> {
+    return OfficialService.getOfficialById({ id })
+      .then((official) => ({
+        data: new Official(official),
         status: "success",
       }))
       .catch((error) => {
@@ -33,8 +33,8 @@ export class PlayerResources {
       });
   }
 
-  static async create(form: Player): Promise<ApiResponse<string>> {
-    return PlayerService.createPlayer({
+  static async create(form: Official): Promise<ApiResponse<string>> {
+    return OfficialService.createOfficial({
       requestBody: form.toApi,
     })
       .then((response) => ({

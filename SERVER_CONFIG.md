@@ -88,7 +88,7 @@ cd /etc/apache2/sites-available/
 mkdir template.fr.conf
 ```
 
-You can change `template.fr` by what you want either your app url (recommended) or just the name of your project `template-vue.conf`. But this must end with `.conf` extension.
+You can change `template.fr` by what you want either your app url (recommended) or just the firstName of your project `template-vue.conf`. But this must end with `.conf` extension.
 
 - Open the file using `vi`
 
@@ -176,7 +176,7 @@ The default file doesn’t come with a ServerName directive so we’ll have to a
 ServerName template-vue.com
 ```
 
-`ServerAlias` is an alternate names for a host used when matching requests to name-virtual hosts
+`ServerAlias` is an alternate names for a host used when matching requests to firstName-virtual hosts
 
 This ensures people reach the right site instead of the default one when they type in `template-vue.com`.
 

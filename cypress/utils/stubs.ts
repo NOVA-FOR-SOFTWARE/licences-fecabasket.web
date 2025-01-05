@@ -23,7 +23,7 @@ export function useStubs() {
     }, {
       statusCode: 200,
       body: players,
-    }).as("players-list");
+    }).as("clubs-list");
   }
   const stubGetPlayerById = (id: string) =>{
     cy.intercept({
@@ -32,7 +32,7 @@ export function useStubs() {
     }, {
       statusCode: 200,
       body: players[0],
-    }).as("player-details");
+    }).as("official-details");
   }
 
   return {

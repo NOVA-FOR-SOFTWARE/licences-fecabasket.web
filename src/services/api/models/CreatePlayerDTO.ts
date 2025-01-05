@@ -2,8 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type PlayerDTO = {
-    id?: number;
+export type CreatePlayerDTO = {
     nom?: string;
     prenom?: string;
     sexe?: string;

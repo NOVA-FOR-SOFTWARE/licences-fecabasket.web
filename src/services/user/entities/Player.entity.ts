@@ -38,6 +38,10 @@ export class Player extends Entity<PlayerProps> {
     super(props, id);
   }
 
+  get id(): string {
+    return this.props.id ?? "";
+  }
+
   get lastname(): string {
     return this.props.nom ?? "";
   }
@@ -87,7 +91,7 @@ export class Player extends Entity<PlayerProps> {
   }
 
   get sex(): string {
-    return this.props.sexe;
+    return this.props.sexe ?? "";
   }
 
   set sex(value: string) {
@@ -200,6 +204,14 @@ export class Player extends Entity<PlayerProps> {
     return this.props.statut ?? "";
   }
 
+  get folder(): string {
+    return this.props.dossier ?? "";
+  }
+
+  get trophies(): string {
+    return this.props.dossier ?? "";
+  }
+
   get toApi(): PlayerProps {
     return {
       id: this._id ?? "",
@@ -228,6 +240,7 @@ export class Player extends Entity<PlayerProps> {
       ligue: this.league,
       post: this.post,
       statut: this.status,
+      dossier: this.folder,
     };
   }
 }

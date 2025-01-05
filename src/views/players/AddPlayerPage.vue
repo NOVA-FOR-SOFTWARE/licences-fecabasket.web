@@ -98,7 +98,7 @@
                     v-model="player.residence"
                     placeholder="Lieux de Residence"
                     theme="bg-[#F5F5F5]"
-                    :errors="v1$.placeOfResidence?.$errors"
+                    :errors="v1$.residence?.$errors"
                   />
                   <TextInput
                     v-model="player.email"
@@ -286,10 +286,10 @@ const player = reactive<Player>({
   lastname: "",
   birthDate: "",
   birthPlace: "",
-  placeOfResidence: "",
+  residence: "",
   email: "",
   phoneNumber: "",
-  picture: null,
+  picture: "",
   mainHand: "",
   height: "",
   weight: "",
@@ -314,7 +314,7 @@ const firstStepRules = computed(() => ({
   lastname: requiredTextField,
   birthDate: requiredTextField,
   birthPlace: requiredTextField,
-  placeOfResidence: requiredTextField,
+  residence: requiredTextField,
   email: {
     ...requiredTextField,
     email: helpers.withMessage("Cet email n'est pas valide", email),
@@ -367,16 +367,15 @@ const onSubmit = async () => {
     await goToNextStep();
     return;
   }
-
-  isLoading.value = true;
-  if (!(await validateForm())) return;
-  const playerToSave = nullPlayerEntity();
-  Object.assign(playerToSave, player);
-  console.log(playerToSave);
-  const playerId = await PlayerResources.create(playerToSave);
-  console.log(playerId);
-  emit("created");
   try {
+    isLoading.value = true;
+    if (!(await validateForm())) return;
+    const playerToSave = nullPlayerEntity();
+    Object.assign(playerToSave, player);
+    console.log(playerToSave);
+    const playerId = await PlayerResources.create(playerToSave);
+    console.log(playerId);
+    emit("created");
   } catch (error: unknown) {
     console.error(error);
   } finally {

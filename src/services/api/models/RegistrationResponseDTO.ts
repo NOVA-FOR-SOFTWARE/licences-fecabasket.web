@@ -2,4 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type PlayerStatutDTO = 'BROUILLON' | 'ATTENTE' | 'VALIDE' | 'REFUSE';
+export type RegistrationResponseDTO = {
+    message?: string;
+};
+

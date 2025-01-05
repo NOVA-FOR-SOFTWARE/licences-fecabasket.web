@@ -38,16 +38,18 @@ defineEmits(["update:modelValue"]);
 withDefaults(
   defineProps<{
     label?: string;
-    name?: string;
+    firstName?: string;
     modelValue: string | number;
     placeholder?: string;
     theme?: string;
     type?: "text" | "email" | "number" | "date";
     errors?: ErrorObject[];
+    name?: string;
   }>(),
   {
     placeholder: "",
     type: "text",
+    name: "",
   },
 );
 </script>
